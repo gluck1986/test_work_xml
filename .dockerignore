@@ -1,0 +1,6 @@
+Makefile
+.coverage
+.github
+.idea
+.vscode
+deployments
