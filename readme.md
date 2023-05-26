@@ -1,0 +1,1 @@
+![example workflow](https://github.com/gluck1986/test_work_xml/actions/workflows/audit/badge.svg)
