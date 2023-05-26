@@ -7,7 +7,7 @@ import (
 
 //go:generate mockery --dir . --name ISdnReader --output ./mocks
 type ISdnReader interface {
-	io.Reader
+	io.ReadCloser
 }
 
 //go:generate mockery --dir . --name ISdnParser --output ./mocks
