@@ -34,7 +34,7 @@ func TestSdnXmlParser_Next(t1 *testing.T) {
 	assert.True(t1, ok)
 	assertResults(t1, expectedResults[1], res)
 
-	res, ok = parser.Next()
+	_, ok = parser.Next()
 	assert.False(t1, ok)
 }
 
