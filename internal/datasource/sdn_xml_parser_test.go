@@ -20,7 +20,7 @@ func TestSdnXmlParser_Next(t1 *testing.T) {
 
 	}
 
-	reader := io.NopCloser(strings.NewReader(sdnXmlParserTestGetTestXML()))
+	reader := io.NopCloser(strings.NewReader(sdnXMLParserTestGetTestXML()))
 
 	parser := NewSdnXMLParser(reader)
 
@@ -38,7 +38,7 @@ func TestSdnXmlParser_Next(t1 *testing.T) {
 	assert.False(t1, ok)
 }
 
-func sdnXmlParserTestGetTestXML() string {
+func sdnXMLParserTestGetTestXML() string {
 	return `
 <?xml version="1.0" standalone="yes"?>
 <sdnList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://tempuri.org/sdnList.xsd">

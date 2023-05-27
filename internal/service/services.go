@@ -13,7 +13,9 @@ type ISdnSyncroniser interface {
 	Syncronise(ctx context.Context) error
 }
 
+// ISdnWriter write a batch of model.SdnEntity
+//
 //go:generate mockery --dir . --name ISdnWriter --output ./mocks
 type ISdnWriter interface {
-	Write(model.SdnEntity) error
+	WriteMany([]model.SdnEntity) error
 }

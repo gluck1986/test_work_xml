@@ -12,19 +12,19 @@ import (
 
 const batchSize = 500
 
-// SdnSyncroniser implementation of service that parse from external source sdn data and store to repo
+// SdnSyncroniser implementation of service that parse from external source sdn data and store to writer
 type SdnSyncroniser struct {
 	isIdle atomic.Bool
 	log    *log.Logger
 	parser datasource.ISdnParser
-	repo   datasource.ISdnRepository
+	writer ISdnWriter
 }
 
 // SdnSyncroniserParams dependency
 type SdnSyncroniserParams struct {
 	Log    *log.Logger
 	Parser datasource.ISdnParser
-	Repo   datasource.ISdnRepository
+	Writer ISdnWriter
 }
 
 // NewSdnSyncroniser constructor
@@ -33,7 +33,7 @@ func NewSdnSyncroniser(p *SdnSyncroniserParams) ISdnSyncroniser {
 		isIdle: atomic.Bool{},
 		log:    p.Log,
 		parser: p.Parser,
-		repo:   p.Repo,
+		writer: p.Writer,
 	}
 }
 
@@ -125,7 +125,7 @@ func (t *SdnSyncroniser) filterMapReduce(input <-chan model.SdnParseResponse, ou
 
 func (t *SdnSyncroniser) write(input <-chan []model.SdnEntity, done chan<- bool) {
 	for batch := range input {
-		err := t.repo.WriteMany(batch)
+		err := t.writer.WriteMany(batch)
 		if err != nil {
 			t.log.Println("error: cannot write batch of sdn", err)
 		}

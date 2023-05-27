@@ -26,7 +26,7 @@ func TestSdnSyncroniser_SyncroniseIdle(t1 *testing.T) {
 
 	dep := &service.SdnSyncroniserParams{
 		Parser: parser,
-		Repo:   repo,
+		Writer: repo,
 		Log:    log.New(io.Discard, "", 0),
 	}
 	t := service.NewSdnSyncroniser(dep)
@@ -61,7 +61,7 @@ func TestSdnSyncroniser_SyncroniseIdleAbort(t1 *testing.T) {
 
 	dep := &service.SdnSyncroniserParams{
 		Parser: parser,
-		Repo:   repo,
+		Writer: repo,
 		Log:    log.New(io.Discard, "", 0),
 	}
 	t := service.NewSdnSyncroniser(dep)
@@ -113,7 +113,7 @@ func TestSdnSyncroniser_SyncroniseUseParserOneBatch(t1 *testing.T) {
 
 	dep := &service.SdnSyncroniserParams{
 		Parser: parser,
-		Repo:   repo,
+		Writer: repo,
 	}
 	t := service.NewSdnSyncroniser(dep)
 
