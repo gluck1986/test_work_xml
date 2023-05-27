@@ -1,11 +1,12 @@
-package dataSource
+package datasource
 
 import (
 	"fmt"
 	"net/http"
 )
 
-func NewSdnHttpReader(path string) (ISdnReader, error) {
+// NewSdnHTTPReader constructor
+func NewSdnHTTPReader(path string) (ISdnReader, error) {
 	resp, err := http.Get(path)
 	if err != nil {
 		return nil, err

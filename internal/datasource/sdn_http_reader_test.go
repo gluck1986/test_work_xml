@@ -1,4 +1,4 @@
-package dataSource
+package datasource
 
 import (
 	"bytes"
@@ -14,7 +14,7 @@ func TestNewSdnHttpReaderRemoteError(t *testing.T) {
 	}))
 
 	defer server.Close()
-	_, err := NewSdnHttpReader(server.URL)
+	_, err := NewSdnHTTPReader(server.URL)
 	if err == nil {
 		t.Fatalf("Needs error")
 	}
@@ -25,7 +25,7 @@ func TestNewSdnHttpReaderOk(t *testing.T) {
 		rw.WriteHeader(http.StatusOK)
 	}))
 	defer server.Close()
-	_, err := NewSdnHttpReader(server.URL)
+	_, err := NewSdnHTTPReader(server.URL)
 	if err != nil {
 		t.Fatalf("Unexpected error: %v", err)
 	}
@@ -37,7 +37,7 @@ func TestNewSdnHttpReaderRead(t *testing.T) {
 		rw.Write([]byte("123"))
 	}))
 	defer server.Close()
-	reader, err := NewSdnHttpReader(server.URL)
+	reader, err := NewSdnHTTPReader(server.URL)
 	if err != nil {
 		t.Fatalf("Unexpected error: %v", err)
 	}

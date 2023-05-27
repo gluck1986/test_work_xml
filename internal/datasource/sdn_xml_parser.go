@@ -1,4 +1,4 @@
-package dataSource
+package datasource
 
 import (
 	"encoding/xml"
@@ -6,24 +6,27 @@ import (
 	"strings"
 )
 
-const DefaultAllowedSdnType = "Individual"
+const defaultAllowedSdnType = "Individual"
 
-type SdnXmlParser struct {
+// SdnXMLParser xml parser
+type SdnXMLParser struct {
 	reader      ISdnReader
 	sdnOnlyType string
 	decoder     *xml.Decoder
 	publishInfo model.PublishInformation
 }
 
-func NewSdnXmlParser(reader ISdnReader) ISdnParser {
-	return &SdnXmlParser{
+// NewSdnXMLParser constructor
+func NewSdnXMLParser(reader ISdnReader) ISdnParser {
+	return &SdnXMLParser{
 		reader:      reader,
-		sdnOnlyType: DefaultAllowedSdnType,
+		sdnOnlyType: defaultAllowedSdnType,
 		decoder:     xml.NewDecoder(reader),
 	}
 }
 
-func (t *SdnXmlParser) Next() (model.SdnParseResponse, bool) {
+// Next returns new model.SdnParseResponse until source has data
+func (t *SdnXMLParser) Next() (model.SdnParseResponse, bool) {
 	var publishInformation model.PublishInformation
 	for {
 		token, _ := t.decoder.Token()

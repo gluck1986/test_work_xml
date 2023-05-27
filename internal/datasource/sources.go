@@ -1,4 +1,4 @@
-package dataSource
+package datasource
 
 import (
 	"gluck1986/test_work_xml/internal/model"

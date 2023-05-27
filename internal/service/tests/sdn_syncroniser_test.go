@@ -3,7 +3,7 @@ package tests
 import (
 	"context"
 	"github.com/stretchr/testify/mock"
-	mocks2 "gluck1986/test_work_xml/internal/dataSource/mocks"
+	mocks2 "gluck1986/test_work_xml/internal/datasource/mocks"
 	"gluck1986/test_work_xml/internal/model"
 	"gluck1986/test_work_xml/internal/service"
 	"io"

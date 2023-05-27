@@ -1,4 +1,4 @@
-package dataSource
+package datasource
 
 import (
 	"github.com/stretchr/testify/assert"
@@ -20,11 +20,11 @@ func TestSdnXmlParser_Next(t1 *testing.T) {
 
 	}
 
-	reader := io.NopCloser(strings.NewReader(sdnXmlParserTestGetTestXml()))
+	reader := io.NopCloser(strings.NewReader(sdnXmlParserTestGetTestXML()))
 
-	parser := NewSdnXmlParser(reader)
+	parser := NewSdnXMLParser(reader)
 
-	expectedResults := sdnXmlParserTestGetTestResults()
+	expectedResults := sdnXMLParserTestGetTestResults()
 
 	res, ok := parser.Next()
 	assert.True(t1, ok)
@@ -38,7 +38,7 @@ func TestSdnXmlParser_Next(t1 *testing.T) {
 	assert.False(t1, ok)
 }
 
-func sdnXmlParserTestGetTestXml() string {
+func sdnXmlParserTestGetTestXML() string {
 	return `
 <?xml version="1.0" standalone="yes"?>
 <sdnList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://tempuri.org/sdnList.xsd">
@@ -89,7 +89,7 @@ func sdnXmlParserTestGetTestXml() string {
 `
 }
 
-func sdnXmlParserTestGetTestResults() []model.SdnParseResponse {
+func sdnXMLParserTestGetTestResults() []model.SdnParseResponse {
 	return []model.SdnParseResponse{
 		{
 			Data: model.SdnExternalEntity{

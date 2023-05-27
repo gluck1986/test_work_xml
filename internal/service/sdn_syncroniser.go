@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"fmt"
-	"gluck1986/test_work_xml/internal/dataSource"
+	"gluck1986/test_work_xml/internal/datasource"
 	"gluck1986/test_work_xml/internal/model"
 	"log"
 	"sync/atomic"
@@ -16,15 +16,15 @@ const batchSize = 500
 type SdnSyncroniser struct {
 	isIdle atomic.Bool
 	log    *log.Logger
-	parser dataSource.ISdnParser
-	repo   dataSource.ISdnRepository
+	parser datasource.ISdnParser
+	repo   datasource.ISdnRepository
 }
 
 // SdnSyncroniserParams dependency
 type SdnSyncroniserParams struct {
 	Log    *log.Logger
-	Parser dataSource.ISdnParser
-	Repo   dataSource.ISdnRepository
+	Parser datasource.ISdnParser
+	Repo   datasource.ISdnRepository
 }
 
 // NewSdnSyncroniser constructor
@@ -73,6 +73,7 @@ func (t *SdnSyncroniser) parseDate(srcDate string) time.Time {
 	return parsedTime
 }
 
+// IsIdle returns true if the service has active background tasks
 func (t *SdnSyncroniser) IsIdle() bool {
 	return t.isIdle.Load()
 }
