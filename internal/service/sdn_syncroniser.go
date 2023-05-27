@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"fmt"
-	"gluck1986/test_work_xml/internal/data_source"
+	"gluck1986/test_work_xml/internal/dataSource"
 	"gluck1986/test_work_xml/internal/model"
 	"log"
 	"sync/atomic"
@@ -12,19 +12,22 @@ import (
 
 const batchSize = 500
 
+// SdnSyncroniser implementation of service that parse from external source sdn data and store to repo
 type SdnSyncroniser struct {
 	isIdle atomic.Bool
 	log    *log.Logger
-	parser data_source.ISdnParser
-	repo   data_source.ISdnRepository
+	parser dataSource.ISdnParser
+	repo   dataSource.ISdnRepository
 }
 
+// SdnSyncroniserParams dependency
 type SdnSyncroniserParams struct {
 	Log    *log.Logger
-	Parser data_source.ISdnParser
-	Repo   data_source.ISdnRepository
+	Parser dataSource.ISdnParser
+	Repo   dataSource.ISdnRepository
 }
 
+// NewSdnSyncroniser constructor
 func NewSdnSyncroniser(p *SdnSyncroniserParams) ISdnSyncroniser {
 	return &SdnSyncroniser{
 		isIdle: atomic.Bool{},

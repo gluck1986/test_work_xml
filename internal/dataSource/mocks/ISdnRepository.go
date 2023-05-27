@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	criteria "gluck1986/test_work_xml/internal/data_source/criteria"
+	criteria "gluck1986/test_work_xml/internal/dataSource/criteria"
 
 	mock "github.com/stretchr/testify/mock"
 

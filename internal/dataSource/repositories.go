@@ -1,10 +1,12 @@
-package data_source
+package dataSource
 
 import (
-	"gluck1986/test_work_xml/internal/data_source/criteria"
+	"gluck1986/test_work_xml/internal/dataSource/criteria"
 	"gluck1986/test_work_xml/internal/model"
 )
 
+// ISdnRepository store and read Sdn entities
+//
 //go:generate mockery --dir . --name ISdnRepository --output ./mocks
 type ISdnRepository interface {
 	Write(entity model.SdnEntity) error
