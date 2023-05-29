@@ -18,3 +18,10 @@ type ISdnReader interface {
 type ISdnParser interface {
 	Next() (model.SdnParseResponse, bool)
 }
+
+// ISdnParserFactory make parser for new parse process
+//
+//go:generate mockery --dir . --name ISdnParserFactory --output ./mocks
+type ISdnParserFactory interface {
+	GetParser() (ISdnParser, error)
+}

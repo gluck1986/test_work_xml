@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"gluck1986/test_work_xml/internal/app"
+)
 
 func main() {
-	fmt.Println("hello world")
+	app.Run()
 }

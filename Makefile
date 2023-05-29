@@ -18,6 +18,9 @@ up: ## docker-compose up
 up-d: ## docker-compose up -d
 	docker-compose -f ./deployments/docker-compose.yaml  up --build -d
 
+.PHONY: down
+down: ## docker-compose down
+	docker-compose -f ./deployments/docker-compose.yaml  down
 
 .PHONY: lint
 lint: ## runs linter

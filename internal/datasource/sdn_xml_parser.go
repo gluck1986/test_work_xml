@@ -31,14 +31,20 @@ func (t *SdnXMLParser) Next() (model.SdnParseResponse, bool) {
 	for {
 		token, _ := t.decoder.Token()
 		if token == nil {
-			t.reader.Close()
+			err := t.reader.Close()
+			if err != nil {
+				return model.SdnParseResponse{}, false
+			}
 			return model.SdnParseResponse{}, false
 		}
 		switch se := token.(type) {
 		case xml.StartElement:
 			if se.Name.Local == "sdnEntry" {
 				var sdnExternalEntity model.SdnExternalEntity
-				t.decoder.DecodeElement(&sdnExternalEntity, &se)
+				err := t.decoder.DecodeElement(&sdnExternalEntity, &se)
+				if err != nil {
+					continue
+				}
 				if strings.TrimSpace(sdnExternalEntity.SdnType) != t.sdnOnlyType {
 					continue
 				}
@@ -47,7 +53,10 @@ func (t *SdnXMLParser) Next() (model.SdnParseResponse, bool) {
 					PublishInformation: t.publishInfo,
 				}, true
 			} else if se.Name.Local == "publshInformation" {
-				t.decoder.DecodeElement(&publishInformation, &se)
+				err := t.decoder.DecodeElement(&publishInformation, &se)
+				if err != nil {
+					continue
+				}
 				t.publishInfo = publishInformation
 			}
 		}

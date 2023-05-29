@@ -34,7 +34,10 @@ func TestNewSdnHttpReaderOk(t *testing.T) {
 func TestNewSdnHttpReaderRead(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
 		rw.WriteHeader(http.StatusOK)
-		rw.Write([]byte("123"))
+		_, err := rw.Write([]byte("123"))
+		if err != nil {
+			t.Fatalf("Unexpected error: %v", err)
+		}
 	}))
 	defer server.Close()
 	reader, err := NewSdnHTTPReader(server.URL)

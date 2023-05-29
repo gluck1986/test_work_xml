@@ -25,13 +25,16 @@ func TestSdnSyncroniser_SyncroniseIdle(t1 *testing.T) {
 	repo := mocks2.NewISdnRepository(t1)
 
 	dep := &service.SdnSyncroniserParams{
-		Parser: parser,
 		Writer: repo,
 		Log:    log.New(io.Discard, "", 0),
 	}
 	t := service.NewSdnSyncroniser(dep)
+	err := t.Init(ctx, parser)
+	if err != nil {
+		t1.Errorf("Syncronise() error = %v, wantErr %v", err, false)
+	}
 	go func() {
-		if err := t.Syncronise(ctx); err != nil {
+		if err := t.Syncronise(); err != nil {
 			t1.Errorf("Syncronise() error = %v, wantErr %v", err, false)
 		}
 	}()
@@ -60,13 +63,16 @@ func TestSdnSyncroniser_SyncroniseIdleAbort(t1 *testing.T) {
 	repo.On("WriteMany", mock.Anything).Return(nil)
 
 	dep := &service.SdnSyncroniserParams{
-		Parser: parser,
 		Writer: repo,
 		Log:    log.New(io.Discard, "", 0),
 	}
 	t := service.NewSdnSyncroniser(dep)
+	err := t.Init(ctx, parser)
+	if err != nil {
+		t1.Errorf("Syncronise() error = %v, wantErr %v", err, false)
+	}
 	go func() {
-		if err := t.Syncronise(ctx); err != nil {
+		if err := t.Syncronise(); err != nil {
 			t1.Errorf("Syncronise() error = %v, wantErr %v", err, false)
 		}
 	}()
@@ -112,12 +118,15 @@ func TestSdnSyncroniser_SyncroniseUseParserOneBatch(t1 *testing.T) {
 	repo.On("WriteMany", batch).Once().Return(nil)
 
 	dep := &service.SdnSyncroniserParams{
-		Parser: parser,
 		Writer: repo,
 	}
 	t := service.NewSdnSyncroniser(dep)
+	err := t.Init(ctx, parser)
+	if err != nil {
+		t1.Errorf("Syncronise() error = %v, wantErr %v", err, false)
+	}
 
-	if err := t.Syncronise(ctx); err != nil {
+	if err := t.Syncronise(); err != nil {
 		t1.Errorf("Syncronise() error = %v, wantErr %v", err, false)
 	}
 }

@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"fmt"
 	"gluck1986/test_work_xml/internal/datasource"
 	"gluck1986/test_work_xml/internal/model"
 	"log"
@@ -18,12 +17,12 @@ type SdnSyncroniser struct {
 	log    *log.Logger
 	parser datasource.ISdnParser
 	writer ISdnWriter
+	ctx    context.Context
 }
 
 // SdnSyncroniserParams dependency
 type SdnSyncroniserParams struct {
 	Log    *log.Logger
-	Parser datasource.ISdnParser
 	Writer ISdnWriter
 }
 
@@ -32,21 +31,29 @@ func NewSdnSyncroniser(p *SdnSyncroniserParams) ISdnSyncroniser {
 	return &SdnSyncroniser{
 		isIdle: atomic.Bool{},
 		log:    p.Log,
-		parser: p.Parser,
 		writer: p.Writer,
 	}
 }
 
-// Syncronise run sycronise, it has background tasks
-func (t *SdnSyncroniser) Syncronise(ctx context.Context) error {
+func (t *SdnSyncroniser) Init(ctx context.Context, parser datasource.ISdnParser) error {
 	if t.IsIdle() {
-		return fmt.Errorf("this instance already started")
+		return ErrorSyncroniserAlreadyInProgress
+	}
+	t.parser = parser
+	t.ctx = ctx
+	return nil
+}
+
+// Syncronise run sycronise, it has background tasks
+func (t *SdnSyncroniser) Syncronise() error {
+	if t.IsIdle() {
+		return ErrorSyncroniserAlreadyInProgress
 	}
 	t.isIdle.Store(true)
 	parsed := make(chan model.SdnParseResponse)
 	batchToWrite := make(chan []model.SdnEntity)
 	done := make(chan bool)
-	go t.parse(ctx, parsed)
+	go t.parse(t.ctx, parsed)
 	go t.filterMapReduce(parsed, batchToWrite)
 	go t.write(batchToWrite, done)
 
