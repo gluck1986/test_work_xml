@@ -14,6 +14,7 @@ type Infrastructure struct {
 	Migrator *Migrator
 }
 
+// NewInfrastructure constructor
 func NewInfrastructure(cfg *config.Config) *Infrastructure {
 	logger := log.New(os.Stdout, "", 0)
 	db := NewDb(cfg, logger)

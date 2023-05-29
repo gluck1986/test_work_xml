@@ -35,6 +35,7 @@ func NewSdnSyncroniser(p *SdnSyncroniserParams) ISdnSyncroniser {
 	}
 }
 
+// Init set context and parser, use it before every run Syncronise
 func (t *SdnSyncroniser) Init(ctx context.Context, parser datasource.ISdnParser) error {
 	if t.IsIdle() {
 		return ErrorSyncroniserAlreadyInProgress

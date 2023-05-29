@@ -2,8 +2,8 @@ package infrastructure
 
 import (
 	"github.com/golang-migrate/migrate/v4"
-	_ "github.com/golang-migrate/migrate/v4/database/postgres"
-	_ "github.com/golang-migrate/migrate/v4/source/file"
+	_ "github.com/golang-migrate/migrate/v4/database/postgres" //side effect
+	_ "github.com/golang-migrate/migrate/v4/source/file"       //side effect
 	"gluck1986/test_work_xml/internal/config"
 	"log"
 )

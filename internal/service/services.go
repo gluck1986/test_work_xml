@@ -7,6 +7,8 @@ import (
 	"gluck1986/test_work_xml/internal/model"
 )
 
+// ErrorSyncroniserAlreadyInProgress will fire if you try run ISdnSyncroniser.Syncronise() or ISdnSyncroniser.Init()
+// when  ISdnSyncroniser.Syncronise() is already in progress
 var ErrorSyncroniserAlreadyInProgress = errors.New("parsing already in progress")
 
 // ISdnSyncroniser is a syncronise sdn data service from source to storage

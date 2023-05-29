@@ -6,6 +6,7 @@ import (
 	"log"
 )
 
+// DbContainer db dependency container
 type DbContainer struct {
 	Db *pg.DB
 }
