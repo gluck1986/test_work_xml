@@ -7,6 +7,15 @@ import (
 	"gluck1986/test_work_xml/internal/model"
 )
 
+// SyncroniserState state of ISdnSyncroniser and its data
+type SyncroniserState int
+
+const (
+	SyncroniserEmpty SyncroniserState = iota
+	SyncroniserInProgress
+	SyncroniserOk
+)
+
 // ErrorSyncroniserAlreadyInProgress will fire if you try run ISdnSyncroniser.Syncronise() or ISdnSyncroniser.Init()
 // when  ISdnSyncroniser.Syncronise() is already in progress
 var ErrorSyncroniserAlreadyInProgress = errors.New("parsing already in progress")
@@ -25,4 +34,11 @@ type ISdnSyncroniser interface {
 //go:generate mockery --dir . --name ISdnWriter --output ./mocks
 type ISdnWriter interface {
 	WriteMany([]model.SdnEntity) error
+}
+
+// ISyncroniseVisor returns ISdnSyncroniser work status and its data
+//
+//go:generate mockery --dir . --name ISyncroniseVisor --output ./mocks
+type ISyncroniseVisor interface {
+	GetStatus() (SyncroniserState, error)
 }

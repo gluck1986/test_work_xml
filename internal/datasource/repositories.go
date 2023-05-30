@@ -13,4 +13,5 @@ type ISdnRepository interface {
 	WriteMany([]model.SdnEntity) error
 	ReadOne(uid int) (model.SdnEntity, error)
 	ReadMany(criteria criteria.SdnCriteria) ([]model.SdnEntity, error)
+	Exists(criteria criteria.SdnCriteria) (bool, error)
 }

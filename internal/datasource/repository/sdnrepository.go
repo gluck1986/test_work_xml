@@ -38,3 +38,8 @@ func (t *SdnRepository) ReadOne(uid int) (model.SdnEntity, error) {
 func (t *SdnRepository) ReadMany(criteria criteria.SdnCriteria) ([]model.SdnEntity, error) {
 	return nil, nil
 }
+
+// Exists check are there data by criteria
+func (t *SdnRepository) Exists(criteria criteria.SdnCriteria) (bool, error) {
+	return false, nil
+}
