@@ -29,8 +29,9 @@ type SdnExternalEntity struct {
 
 // SdnEntity processed sdn data
 type SdnEntity struct {
-	UID         int
-	FirstName   string
-	LastName    string
-	PublishDate time.Time
+	tableName   struct{}  `pg:"sdn"`
+	UID         int       `pg:"uid,pk"`
+	FirstName   string    `pg:"firstname"`
+	LastName    string    `pg:"lastname"`
+	PublishDate time.Time `pg:"publish"`
 }

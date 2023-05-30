@@ -25,7 +25,16 @@ func (t *SdnRepository) Write(entity model.SdnEntity) error {
 
 // WriteMany write batch (create/rewrite)
 func (t *SdnRepository) WriteMany(models []model.SdnEntity) error {
-	t.logger.Println("noop write sdn, count:", len(models))
+	res, err := t.db.Model(&models).
+		OnConflict("(uid) DO UPDATE").
+		Set("firstname = EXCLUDED.firstname, lastname = EXCLUDED.lastname, publish = EXCLUDED.publish").
+		Insert()
+	if err != nil {
+		t.logger.Println("error: SdnRepository.WriteMany: ", err)
+		return err
+	}
+	t.logger.Println("debug: SdnRepository.WriteMany; ", "insertions/updates: ", res.RowsAffected())
+
 	return nil
 }
 
