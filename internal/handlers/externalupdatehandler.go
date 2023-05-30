@@ -18,12 +18,6 @@ type SdnUpdateHandler struct {
 	logger        *log.Logger
 }
 
-type ok struct {
-	Result bool   `json:"result"`
-	Info   string `json:"info"`
-	Code   int    `json:"code"`
-}
-
 // NewExternalUpdateHandler constructor
 func NewExternalUpdateHandler(
 	service service.ISdnSyncroniser,
@@ -36,7 +30,7 @@ func NewExternalUpdateHandler(
 }
 
 // Handle echo handler function
-func (t SdnUpdateHandler) Handle(ctx echo.Context) error {
+func (t *SdnUpdateHandler) Handle(ctx echo.Context) error {
 	backCtx := context.Background()
 	parser, err := t.parserFactory.GetParser()
 	if err != nil {

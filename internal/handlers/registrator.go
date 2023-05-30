@@ -9,12 +9,20 @@ import (
 
 // Handlers handlers dependency container
 type Handlers struct {
-	SdnUpdateHandler echo.HandlerFunc
+	SdnUpdateHandler      echo.HandlerFunc
+	SdnUpdateStateHandler echo.HandlerFunc
+}
+
+type ok struct {
+	Result bool   `json:"result"`
+	Info   string `json:"info"`
+	Code   int    `json:"code"`
 }
 
 // NewEchoHandlers make handlers
 func NewEchoHandlers(srvDep *service.Services, sourceDep *datasource.DataSources, infDep *infrastructure.Infrastructure) *Handlers {
 	return &Handlers{
-		SdnUpdateHandler: NewExternalUpdateHandler(srvDep.SdnSyncroniser, sourceDep.ParserFactory, infDep.Log),
+		SdnUpdateHandler:      NewExternalUpdateHandler(srvDep.SdnSyncroniser, sourceDep.ParserFactory, infDep.Log),
+		SdnUpdateStateHandler: NewSdnUpdateStateHandler(srvDep.SyncroniseVisor, infDep.Log),
 	}
 }

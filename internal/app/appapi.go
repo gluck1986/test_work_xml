@@ -38,6 +38,7 @@ func Run() {
 	e.Use(middleware.Recover())
 
 	e.POST("/update", handlersDependency.SdnUpdateHandler)
+	e.GET("/state", handlersDependency.SdnUpdateStateHandler)
 
 	// Start server
 	s := &http.Server{

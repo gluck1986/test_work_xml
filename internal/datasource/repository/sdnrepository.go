@@ -50,5 +50,16 @@ func (t *SdnRepository) ReadMany(criteria criteria.SdnCriteria) ([]model.SdnEnti
 
 // Exists check are there data by criteria
 func (t *SdnRepository) Exists(criteria criteria.SdnCriteria) (bool, error) {
-	return false, nil
+	sdn := new(model.SdnEntity)
+	q := t.db.Model(sdn)
+	if criteria.Limit > 0 {
+		q.Limit(criteria.Limit)
+	}
+	exists, err := q.Exists()
+	if err != nil {
+		t.logger.Println("error, SdnRepository, Exists()", err)
+
+		return false, err
+	}
+	return exists, nil
 }
