@@ -38,13 +38,13 @@ func TestSdnSyncroniser_SyncroniseIdle(t1 *testing.T) {
 			t1.Errorf("Syncronise() error = %v, wantErr %v", err, false)
 		}
 	}()
-	time.Sleep(time.Millisecond)
+	time.Sleep(time.Millisecond * 10)
 	if !t.IsIdle() {
 		t1.Errorf("IsIdle = false, want true")
 	}
 	stop <- struct{}{}
 	close(stop)
-	time.Sleep(time.Millisecond)
+	time.Sleep(time.Millisecond * 10)
 	if t.IsIdle() {
 		t1.Errorf("IsIdle = true, want false")
 	}
