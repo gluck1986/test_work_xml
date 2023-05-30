@@ -11,8 +11,11 @@ import (
 type SyncroniserState int
 
 const (
+	// SyncroniserEmpty there are no data parsed before and no running parsing now
 	SyncroniserEmpty SyncroniserState = iota
+	// SyncroniserInProgress parsing in progress
 	SyncroniserInProgress
+	// SyncroniserOk there are parsed data and no running process in progress
 	SyncroniserOk
 )
 
