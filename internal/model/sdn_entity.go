@@ -29,6 +29,7 @@ type SdnExternalEntity struct {
 
 // SdnEntity processed sdn data
 type SdnEntity struct {
+	//lint:ignore U1000 for data mapper
 	tableName   struct{}  `pg:"sdn"`
 	UID         int       `pg:"uid,pk"`
 	FirstName   string    `pg:"firstname"`
