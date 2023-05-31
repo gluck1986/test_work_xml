@@ -25,3 +25,11 @@ type ISdnParser interface {
 type ISdnParserFactory interface {
 	GetParser() (ISdnParser, error)
 }
+
+// IUidCache local processed uids storage
+//
+//go:generate mockery --dir . --name IUidCache --output ./mocks
+type IUidCache interface {
+	Has(int) bool
+	Add(int)
+}

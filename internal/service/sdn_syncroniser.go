@@ -18,12 +18,14 @@ type SdnSyncroniser struct {
 	parser datasource.ISdnParser
 	writer ISdnWriter
 	ctx    context.Context
+	cache  datasource.IUidCache
 }
 
 // SdnSyncroniserParams dependency
 type SdnSyncroniserParams struct {
 	Log    *log.Logger
 	Writer ISdnWriter
+	Cache  datasource.IUidCache
 }
 
 // NewSdnSyncroniser constructor
@@ -32,6 +34,7 @@ func NewSdnSyncroniser(p *SdnSyncroniserParams) ISdnSyncroniser {
 		isIdle: atomic.Bool{},
 		log:    p.Log,
 		writer: p.Writer,
+		cache:  p.Cache,
 	}
 }
 
@@ -87,7 +90,8 @@ func (t *SdnSyncroniser) IsIdle() bool {
 }
 
 func (t *SdnSyncroniser) shouldWrite(entity model.SdnParseResponse) bool {
-	return true
+	defer t.cache.Add(entity.Data.UID)
+	return !t.cache.Has(entity.Data.UID)
 }
 
 func (t *SdnSyncroniser) parse(ctx context.Context, out chan<- model.SdnParseResponse) {
