@@ -9,7 +9,7 @@ import (
 type DataSources struct {
 	Repositories  *repository.Repositories
 	ParserFactory ISdnParserFactory
-	UidCache      IUidCache
+	UIDCache      IUIDCache
 }
 
 // NewSources constructor
@@ -18,6 +18,6 @@ func NewSources(infDep *infrastructure.Infrastructure) *DataSources {
 	return &DataSources{
 		Repositories:  repository.NewRepositories(infDep.Db.Db, infDep.Log),
 		ParserFactory: NewSdnXMLParserFactory(infDep.Config, infDep.Log),
-		UidCache:      NewUidCache(),
+		UIDCache:      NewUIDCache(),
 	}
 }

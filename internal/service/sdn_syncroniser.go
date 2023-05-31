@@ -18,14 +18,14 @@ type SdnSyncroniser struct {
 	parser datasource.ISdnParser
 	writer ISdnWriter
 	ctx    context.Context
-	cache  datasource.IUidCache
+	cache  datasource.IUIDCache
 }
 
 // SdnSyncroniserParams dependency
 type SdnSyncroniserParams struct {
 	Log    *log.Logger
 	Writer ISdnWriter
-	Cache  datasource.IUidCache
+	Cache  datasource.IUIDCache
 }
 
 // NewSdnSyncroniser constructor

@@ -1,18 +1,22 @@
 package datasource
 
-type UidCache struct {
+// UIDCache implementation of IUIDCache
+type UIDCache struct {
 	storage map[int]struct{}
 }
 
-func NewUidCache() IUidCache {
-	return &UidCache{storage: make(map[int]struct{})}
+// NewUIDCache Constructor
+func NewUIDCache() IUIDCache {
+	return &UIDCache{storage: make(map[int]struct{})}
 }
 
-func (t *UidCache) Has(uid int) bool {
+// Has in cache
+func (t *UIDCache) Has(uid int) bool {
 	_, ok := t.storage[uid]
 	return ok
 }
 
-func (t *UidCache) Add(uid int) {
+// Add to cache
+func (t *UIDCache) Add(uid int) {
 	t.storage[uid] = struct{}{}
 }

@@ -1,7 +1,8 @@
-package datasource
+package tests
 
 import (
 	"github.com/stretchr/testify/assert"
+	"gluck1986/test_work_xml/internal/datasource"
 	"gluck1986/test_work_xml/internal/model"
 	"io"
 	"strings"
@@ -22,7 +23,7 @@ func TestSdnXmlParser_Next(t1 *testing.T) {
 
 	reader := io.NopCloser(strings.NewReader(sdnXMLParserTestGetTestXML()))
 
-	parser := NewSdnXMLParser(reader)
+	parser := datasource.NewSdnXMLParser(reader)
 
 	expectedResults := sdnXMLParserTestGetTestResults()
 

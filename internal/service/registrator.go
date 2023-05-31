@@ -16,7 +16,7 @@ func NewServices(depSource *datasource.DataSources, depInfr *infrastructure.Infr
 	syncroniser := NewSdnSyncroniser(&SdnSyncroniserParams{
 		Log:    depInfr.Log,
 		Writer: depSource.Repositories.SdnRepository,
-		Cache:  depSource.UidCache,
+		Cache:  depSource.UIDCache,
 	})
 	return &Services{
 		SdnSyncroniser:  syncroniser,

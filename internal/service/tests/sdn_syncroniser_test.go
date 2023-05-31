@@ -25,7 +25,7 @@ func TestSdnSyncroniser_SyncroniseIdle(t1 *testing.T) {
 
 	repo := mocks2.NewISdnRepository(t1)
 
-	cache := mocks2.NewIUidCache(t1)
+	cache := mocks2.NewIUIDCache(t1)
 
 	dep := &service.SdnSyncroniserParams{
 		Writer: repo,
@@ -66,7 +66,7 @@ func TestSdnSyncroniser_SyncroniseIdleAbort(t1 *testing.T) {
 	repo := mocks2.NewISdnRepository(t1)
 	repo.On("WriteMany", mock.Anything).Return(nil)
 
-	cache := mocks2.NewIUidCache(t1)
+	cache := mocks2.NewIUIDCache(t1)
 	cache.On("Add", mock.Anything)
 	cache.On("Has", mock.Anything).Return(false)
 
@@ -126,7 +126,7 @@ func TestSdnSyncroniser_SyncroniseUseParserOneBatch(t1 *testing.T) {
 	repo := mocks2.NewISdnRepository(t1)
 	repo.On("WriteMany", batch).Once().Return(nil)
 
-	cache := mocks2.NewIUidCache(t1)
+	cache := mocks2.NewIUIDCache(t1)
 	cache.On("Add", mock.Anything)
 	cache.On("Has", mock.Anything).Return(false)
 
@@ -183,7 +183,7 @@ func TestSdnSyncroniser_SyncroniseCache(t1 *testing.T) {
 		return true
 	})).Return(nil)
 
-	cache := datasource.NewUidCache()
+	cache := datasource.NewUIDCache()
 
 	dep := &service.SdnSyncroniserParams{
 		Writer: repo,

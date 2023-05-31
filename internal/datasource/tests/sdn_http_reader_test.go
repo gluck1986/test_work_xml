@@ -1,7 +1,8 @@
-package datasource
+package tests
 
 import (
 	"bytes"
+	"gluck1986/test_work_xml/internal/datasource"
 	"io"
 	"net/http"
 	"net/http/httptest"
@@ -14,7 +15,7 @@ func TestNewSdnHttpReaderRemoteError(t *testing.T) {
 	}))
 
 	defer server.Close()
-	_, err := NewSdnHTTPReader(server.URL)
+	_, err := datasource.NewSdnHTTPReader(server.URL)
 	if err == nil {
 		t.Fatalf("Needs error")
 	}
@@ -25,7 +26,7 @@ func TestNewSdnHttpReaderOk(t *testing.T) {
 		rw.WriteHeader(http.StatusOK)
 	}))
 	defer server.Close()
-	_, err := NewSdnHTTPReader(server.URL)
+	_, err := datasource.NewSdnHTTPReader(server.URL)
 	if err != nil {
 		t.Fatalf("Unexpected error: %v", err)
 	}
@@ -40,7 +41,7 @@ func TestNewSdnHttpReaderRead(t *testing.T) {
 		}
 	}))
 	defer server.Close()
-	reader, err := NewSdnHTTPReader(server.URL)
+	reader, err := datasource.NewSdnHTTPReader(server.URL)
 	if err != nil {
 		t.Fatalf("Unexpected error: %v", err)
 	}

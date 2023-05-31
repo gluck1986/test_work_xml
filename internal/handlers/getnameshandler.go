@@ -25,8 +25,9 @@ func NewGetNamesHandler(
 	return &GetNamesHandler{logger: logger, repo: repo}
 }
 
+// GetNamesResultItem response item
 type GetNamesResultItem struct {
-	Uid       int    `json:"uid"`
+	UID       int    `json:"uid"`
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
 }
@@ -86,7 +87,7 @@ func (t *GetNamesHandler) mapResult(src []model.SdnEntity) []GetNamesResultItem 
 
 	for i, sdnEntity := range src {
 		result[i] = GetNamesResultItem{
-			Uid:       sdnEntity.UID,
+			UID:       sdnEntity.UID,
 			FirstName: sdnEntity.FirstName,
 			LastName:  sdnEntity.LastName,
 		}
