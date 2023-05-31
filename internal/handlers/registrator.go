@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"github.com/labstack/echo/v4"
 	"gluck1986/test_work_xml/internal/datasource"
 	"gluck1986/test_work_xml/internal/infrastructure"
 	"gluck1986/test_work_xml/internal/service"
@@ -9,8 +8,9 @@ import (
 
 // Handlers handlers dependency container
 type Handlers struct {
-	SdnUpdateHandler      echo.HandlerFunc
-	SdnUpdateStateHandler echo.HandlerFunc
+	SdnUpdateHandler      *SdnUpdateHandler
+	SdnUpdateStateHandler *SdnUpdateStateHandler
+	GetNameHandler        *GetNamesHandler
 }
 
 type ok struct {
@@ -22,7 +22,8 @@ type ok struct {
 // NewEchoHandlers make handlers
 func NewEchoHandlers(srvDep *service.Services, sourceDep *datasource.DataSources, infDep *infrastructure.Infrastructure) *Handlers {
 	return &Handlers{
-		SdnUpdateHandler:      NewExternalUpdateHandler(srvDep.SdnSyncroniser, sourceDep.ParserFactory, infDep.Log),
+		SdnUpdateHandler:      NewSdnUpdateHandler(srvDep.SdnSyncroniser, sourceDep.ParserFactory, infDep.Log),
 		SdnUpdateStateHandler: NewSdnUpdateStateHandler(srvDep.SyncroniseVisor, infDep.Log),
+		GetNameHandler:        NewGetNamesHandler(sourceDep.Repositories.SdnRepository, infDep.Log),
 	}
 }

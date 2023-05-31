@@ -18,10 +18,8 @@ type SdnUpdateStateHandler struct {
 func NewSdnUpdateStateHandler(
 	service service.ISyncroniseVisor,
 	logger *log.Logger,
-) echo.HandlerFunc {
-	handler := &SdnUpdateStateHandler{service: service, logger: logger}
-
-	return handler.Handle
+) *SdnUpdateStateHandler {
+	return &SdnUpdateStateHandler{service: service, logger: logger}
 }
 
 // Handle echo handler function

@@ -18,15 +18,13 @@ type SdnUpdateHandler struct {
 	logger        *log.Logger
 }
 
-// NewExternalUpdateHandler constructor
-func NewExternalUpdateHandler(
+// NewSdnUpdateHandler constructor
+func NewSdnUpdateHandler(
 	service service.ISdnSyncroniser,
 	factory datasource.ISdnParserFactory,
 	logger *log.Logger,
-) echo.HandlerFunc {
-	handler := &SdnUpdateHandler{service: service, parserFactory: factory, logger: logger}
-
-	return handler.Handle
+) *SdnUpdateHandler {
+	return &SdnUpdateHandler{service: service, parserFactory: factory, logger: logger}
 }
 
 // Handle echo handler function

@@ -37,8 +37,9 @@ func Run() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	e.POST("/update", handlersDependency.SdnUpdateHandler)
-	e.GET("/state", handlersDependency.SdnUpdateStateHandler)
+	e.POST("/update", handlersDependency.SdnUpdateHandler.Handle)
+	e.GET("/state", handlersDependency.SdnUpdateStateHandler.Handle)
+	e.GET("/get_names", handlersDependency.GetNameHandler.Handle)
 
 	// Start server
 	s := &http.Server{
